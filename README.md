@@ -26,10 +26,11 @@ The ingestion script is written in Jupyter Notebook and even though it's not nec
 ### Information about the files
 1. Dockerfile - This file is not used that much as we are using Docker Compose mostly for our services as I was not using any particular version.
 2. docker-compose.yaml - Instructions to run the services.
-3. taxi+_zone_lookup.csv - This is the Taxi Zone Map dataset file downloaded from the link I have pasted in the above section.
-4. test.py - This is just a test file. Nothing's here.
-5. upload-data-to-postgres.ipynb - Pipeline script to ingest and push data to DB.
-6. yellow_tripdata_2023-01.parquet - This is the parquet file downloaded from the link.
+3. sql-queries - This file contains a couple of queries that I ran on the dataset in pgAdmin.
+4. taxi+_zone_lookup.csv - This is the Taxi Zone Map dataset file downloaded from the link I have pasted in the above section.
+5. test.py - This is just a test file. Nothing's here.
+6. upload-data-to-postgres.ipynb - Pipeline script to ingest and push data to DB.
+7. yellow_tripdata_2023-01.parquet - This is the parquet file downloaded from the link.
 
 Trivial
 - The converted CSV file is too big to be pushed here to this repository.
