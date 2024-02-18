@@ -1,0 +1,59 @@
+-- a simple inner join to join 2 tables
+SELECT * FROM yellow_taxi_data AS t
+JOIN zones AS z ON t."PULocationID" = z."LocationID"
+LIMIT 100;
+
+
+-- querying only passengers who are more than 5
+-- and those who have paid a fare amount of more than 100
+SELECT
+  t."VendorID",
+  t.passenger_count,
+  t.fare_amount
+FROM yellow_taxi_data AS t
+WHERE
+  t.passenger_count > 5 AND t.fare_amount > 100
+ORDER BY
+  t.fare_amount DESC
+LIMIT 100;
+
+
+-- join to concatenate 2 columns and get pickup & dropoff
+SELECT
+  t.tpep_pickup_datetime,
+  t.tpep_dropoff_datetime,
+  t.total_amount,
+  CONCAT(z."Borough", ' / ', z."Zone") AS pickup_loc,
+  CONCAT(z2."Borough", ' / ', z2."Zone") AS dropoff_loc
+FROM yellow_taxi_data AS t
+  INNER JOIN zones as z 
+    ON t."PULocationID" = z."LocationID"
+  INNER JOIN zones as z2 
+    ON t."DOLocationID" = z2."LocationID"
+LIMIT 100;
+
+
+-- checking whether we have null values in dropoff locations
+SELECT
+  t.tpep_pickup_datetime,
+  t.tpep_dropoff_datetime,
+  t.total_amount,
+  t."PULocationID",
+  t."DOLocationID"
+FROM
+  yellow_taxi_data AS t
+WHERE
+  t."DOLocationID" NOT IN (SELECT "LocationID" FROM zones)
+LIMIT 100;
+
+
+-- using group by to calculate total trips per day and aggregations
+SELECT
+  CAST("tpep_dropoff_datetime" AS DATE) AS day,
+  COUNT(*) AS total_trips_per_day,
+  MAX(total_amount),
+  MAX(passenger_count)
+FROM yellow_taxi_data
+GROUP BY
+  CAST("tpep_dropoff_datetime" AS DATE)
+ORDER BY total_trips_per_day DESC;
