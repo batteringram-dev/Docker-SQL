@@ -1,0 +1,41 @@
+services:
+  pgdatabase:
+    container_name: my-pg-container
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=ny_taxi
+    volumes:
+      - "./ny_taxi_postgres_data:/var/lib/postgresql/data:rw"
+    ports:
+      - "5432:5432"
+    networks:
+      - pg-network-2
+  pgadmin:
+    container_name: my-admin-container
+    image: dpage/pgadmin4:7.4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - "8080:80"
+    networks:
+      - pg-network-2
+  jupyter:
+    container_name: my-jupyter-container
+    image: jupyter/base-notebook
+    ports: 
+      - "8888:8888"
+    volumes:
+      - "./:/home/jovyan/work"
+    networks:
+      - pg-network-2
+
+networks:
+  pg-network-2:
+    driver: bridge
+
+
+
+
