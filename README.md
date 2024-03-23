@@ -34,6 +34,5 @@ The ingestion script is written in Jupyter Notebook and even though it's not nec
 
 Trivial
 - The converted CSV file is too big to be pushed here to this repository.
-- This project is part of the DE ZoomCamp 2024.
 
   
